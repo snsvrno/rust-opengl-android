@@ -3,6 +3,8 @@ This is intended to be a minimal working example of desktop + android cross plat
 # What it Does
 Simple opengl example taken from [tomka/glutin's window example](https://github.com/tomaka/glutin) to draw on both desktop and mobile.
 
+Modified to check for mouse & touch input. Click / press inside the window to change the background color!
+
 # Requirements
 - [docker](https://www.docker.com/) (sorta optional)
 - [just](https://github.com/casey/just) (optional)

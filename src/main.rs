@@ -17,24 +17,44 @@ fn main() {
 
     let gl = support::load(&gl_window);
 
+    let mut colors : Vec<([f32;4])> = Vec::new();
+    colors.push([1.0,0.5,0.7,1.0]);
+    colors.push([0.5,0.7,1.0,1.0]);
+    colors.push([0.7,1.0,0.5,1.0]);
+
+    let mut color_index : usize = 0;
+
     let mut running = true;
     while running {
         events_loop.poll_events(|event| {
-            println!("{:?}", event);
+            use glutin::Event::WindowEvent;
+            use glutin::WindowEvent::*;
+
             match event {
-                glutin::Event::WindowEvent { event, .. } => match event {
-                    glutin::WindowEvent::CloseRequested => running = false,
-                    glutin::WindowEvent::Resized(logical_size) => {
+                WindowEvent { event, .. } => match event {
+                    CloseRequested => running = false,
+                    Resized(logical_size) => {
                         let dpi_factor = gl_window.get_hidpi_factor();
                         gl_window.resize(logical_size.to_physical(dpi_factor));
                     },
+                    MouseInput{ state, .. } => {
+                        if state == glutin::ElementState::Pressed { step_color(&colors,&mut color_index); }
+                    },
+                    Touch(touch) => {
+                        if touch.phase == glutin::TouchPhase::Started { step_color(&colors,&mut color_index); }
+                    }
                     _ => (),
                 },
                 _ => ()
             }
         });
 
-        gl.draw_frame([1.0, 0.5, 0.7, 1.0]);
+        gl.draw_frame(colors[color_index]);
         let _ = gl_window.swap_buffers();
     }
+}
+
+fn step_color(colors : &Vec<[f32;4]>, index : &mut usize) {
+    *index += 1;
+    if *index >= colors.len() { *index = 0; } 
 }
