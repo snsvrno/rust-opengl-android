@@ -1,0 +1,8 @@
+version: '3'
+services:
+  android:
+    image: tomaka/cargo-apk
+    container_name: cargo_build_apk
+    entrypoint: cargo apk build
+    volumes: 
+      - .:/root/src

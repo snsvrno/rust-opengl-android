@@ -1,0 +1,7 @@
+/target
+**/*.rs.bk
+
+/build-tools/libraries
+/build-tools/src
+
+refresh-apk.bat

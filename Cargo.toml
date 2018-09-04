@@ -1,0 +1,18 @@
+[package]
+name = "glutinglandroid"
+version = "0.1.0"
+authors = ["snsvrno <snsvrno@tuta.io>"]
+build = "build.rs"
+
+[dependencies]
+glutin = "0.18"
+gl = "0.10"
+
+[build-dependencies]
+gl_generator = "0.9"
+
+[package.metadata.android]
+package_name = "com.snsvrno.android_test"
+label = "Android Test"
+
+build_targets = [ "arm-linux-androideabi" ]
